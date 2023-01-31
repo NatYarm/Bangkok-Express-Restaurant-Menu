@@ -4,8 +4,9 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import './carousel.styles.scss';
 
 import slides from './slides';
-import ProductCaption from '../product-caption/product-caption.component';
+//import CarouselCaption from '../carousel-caption/carousel-caption.component';
 import Arrow from '../arrow/arrow.component';
+import AddButton from '../button/button.component';
 
 const Carousel = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -24,18 +25,6 @@ const Carousel = () => {
 
   const childFactory = (slideDirection) => (child) =>
     React.cloneElement(child, { classNames: slideDirection });
-
-  // const goToNextSlide = () => {
-  //   const newSlide = currentSlide + 1;
-  //   setCurrentSlide(newSlide);
-  //   setSlideDirection('slideRight');
-  // };
-
-  // const goToPrevSlide = () => {
-  //   const newSlide = currentSlide - 1;
-  //   setCurrentSlide(newSlide);
-  //   setSlideDirection('slideLeft');
-  // };
 
   return (
     <div className="carousel-container">
@@ -61,15 +50,18 @@ const Carousel = () => {
               alt="slide.name"
             />
 
-            <ProductCaption
-              title={slide.name}
-              price={`€${slide.price.toFixed(2)}`}
-            />
+            <div className="carousel-caption">
+              <span className="carousel-price">{`€${slide.price.toFixed(
+                2
+              )}`}</span>
+              <span className="carousel-title">{slide.name}</span>
+              <AddButton />
+            </div>
           </div>
         </CSSTransition>
       </TransitionGroup>
 
-      {currentSlide !== slides.length - 1 ? (
+      {currentSlide !== numSlides - 1 ? (
         <Arrow
           arrowType="carousel"
           numSlides={numSlides}

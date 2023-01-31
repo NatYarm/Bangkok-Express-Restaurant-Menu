@@ -26,6 +26,44 @@
   transform: translate(-50%, -50%);
 }
 
+.carousel-caption {
+  position: absolute;
+  z-index: 2;
+  right: 0;
+  bottom: 0;
+  height: 65px;
+  background-color: var(--color-black-dark);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  .carousel-price {
+    position: absolute;
+    right: 0;
+    bottom: 100%;
+    display: inline-block;
+    padding: 8px;
+    min-width: 72px;
+    text-align: center;
+    background-color: var(--color-pink);
+    color: var(--color-body);
+    font-family: var(--font-primary), sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 1.2;
+  }
+
+  .carousel-title {
+    text-align: center;
+    font-weight: 500;
+    font-size: 21px;
+    font-style: italic;
+    line-height: 1.2;
+    width: 100%;
+    padding: 0 20px;
+  }
+}
 @media all and (max-width: 767px) {
   .carousel-container {
     padding-bottom: 57px;

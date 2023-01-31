@@ -4,7 +4,7 @@ import Arrow from '../arrow/arrow.component';
 
 const RibbonMenu = () => {
   return (
-    <div className="container">
+    <div className="ribbon-container">
       <h2 className="section-heading">Our Menu</h2>
       <div className="ribbon">
         <div className="ribbon-arrow-container">
