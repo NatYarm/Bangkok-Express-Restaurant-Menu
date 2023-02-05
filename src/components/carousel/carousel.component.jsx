@@ -4,7 +4,7 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import './carousel.styles.scss';
 
 import slides from './slides';
-//import CarouselCaption from '../carousel-caption/carousel-caption.component';
+
 import Arrow from '../arrow/arrow.component';
 import AddButton from '../button/button.component';
 
