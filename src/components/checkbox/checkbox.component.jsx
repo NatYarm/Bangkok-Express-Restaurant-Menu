@@ -1,21 +1,26 @@
 import * as React from 'react';
 import { useState } from 'react';
+import { useContext } from 'react';
+import { ProductsContext } from '../../contexts/products.context';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Box from '@mui/material/Box';
 
-const CheckboxesGroup = () => {
+const CheckboxesFilter = () => {
   const [state, setState] = useState({
     noNuts: false,
     vegetarianOnly: false,
   });
+
+  const { updateFilters } = useContext(ProductsContext);
 
   const handleChange = (event) => {
     setState({
       ...state,
       [event.target.name]: event.target.checked,
     });
+    updateFilters({ name: [event.target.name], value: event.target.checked });
   };
 
   const { noNuts, vegetarianOnly } = state;
@@ -74,4 +79,4 @@ const CheckboxesGroup = () => {
   );
 };
 
-export default CheckboxesGroup;
+export default CheckboxesFilter;

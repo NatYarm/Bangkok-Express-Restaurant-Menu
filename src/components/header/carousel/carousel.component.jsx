@@ -5,8 +5,8 @@ import './carousel.styles.scss';
 
 import slides from './slides';
 
-import Arrow from '../arrow/arrow.component';
-import AddButton from '../button/button.component';
+import Arrow from '../../arrow/arrow.component';
+import AddButton from '../../button/button.component';
 
 const Carousel = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -46,7 +46,7 @@ const Carousel = () => {
           <div className="carousel-inner">
             <img
               className="carousel-image"
-              src={require(`../../assets/images/carousel/${slide.image}`)}
+              src={require(`../../../assets/images/carousel/${slide.image}`)}
               alt="slide.name"
             />
 

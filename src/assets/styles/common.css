@@ -1,5 +1,5 @@
-@import "https://fonts.googleapis.com/css?family=Lato:400,400i|Source+Sans+Pro|Sriracha&display=swap";
-@import "./button.css";
+@import 'https://fonts.googleapis.com/css?family=Lato:400,400i|Source+Sans+Pro|Sriracha&display=swap';
+@import './button.css';
 
 :root {
   --color-white: #fff;
@@ -14,8 +14,8 @@
   --color-body: var(--color-white);
   --carousel-height: 313px;
   --card-height: 320px;
-  --font-primary: "Lato";
-  --font-secondary: "Sriracha";
+  --font-primary: 'Lato';
+  --font-secondary: 'Sriracha';
 }
 
 html {
@@ -88,9 +88,6 @@ h1,
   margin: 0;
   text-align: center;
   text-transform: uppercase;
-}
-
-.heading.logo {
   font-family: var(--font-secondary), sans-serif;
 }
 
@@ -177,7 +174,6 @@ h2,
     padding: 20px 0 30px;
     overflow: hidden;
   }
-
 }
 
 @media only screen and (max-width: 480px) {

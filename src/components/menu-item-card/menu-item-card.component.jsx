@@ -1,7 +1,7 @@
-import './product-card.styles.scss';
+import './menu-item-card.styles.scss';
 import AddButton from '../button/button.component';
 
-const ProductCard = ({ product }) => {
+const MenuItemCard = ({ product }) => {
   const { name, image, price } = product;
   return (
     <div className="card-container">
@@ -20,4 +20,4 @@ const ProductCard = ({ product }) => {
     </div>
   );
 };
-export default ProductCard;
+export default MenuItemCard;

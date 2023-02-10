@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { ProductsContext } from '../../contexts/products.context';
 
 import Slider from '@mui/material/Slider';
 import { styled } from '@mui/material/styles';
@@ -40,11 +41,13 @@ const CustomizedSlider = styled(Slider)({
   },
 });
 
-const FilterSlider = () => {
+const SliderFilter = () => {
   const [value, setValue] = useState(3);
+  const { updateFilters } = useContext(ProductsContext);
 
   const changeValue = (event, value) => {
     setValue(value);
+    updateFilters({ name: 'maxSpiciness', value });
   };
 
   return (
@@ -63,4 +66,4 @@ const FilterSlider = () => {
   );
 };
 
-export default FilterSlider;
+export default SliderFilter;
