@@ -1,4 +1,5 @@
-import { createContext, useState, useEffect } from 'react';
+import { getBottomNavigationUtilityClass } from '@mui/material';
+import { createContext, useState, useEffect, useCallback } from 'react';
 
 export const ProductsContext = createContext({
   products: [],
@@ -18,7 +19,7 @@ export const ProductsProvider = ({ children }) => {
   const [filters, setFilters] = useState({
     maxSpiciness: 3,
   });
-  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState(products);
 
   useEffect(() => {
     const getCategories = async () => {
@@ -46,42 +47,43 @@ export const ProductsProvider = ({ children }) => {
     // let filteredProducts = products.filter(
     //   (product) => product.spiciness <= filters.maxSpiciness
     // );
-    // console.log({ filteredProducts, filters });
+    // // console.log({ filteredProducts, filters });
 
     // filteredProducts = filters.noNuts
     //   ? filteredProducts.filter((product) => filters.noNuts !== product.nuts)
     //   : filteredProducts;
-    // console.log({ filteredProducts });
+    // // console.log({ filteredProducts, filters });
 
     // filteredProducts = filters.vegetarianOnly
     //   ? filteredProducts.filter(
     //       (product) => filters.vegetarianOnly === product.vegetarian
     //     )
-    //   : products;
-    // console.log({ filteredProducts, filters });
+    //   : filteredProducts;
+    // // console.log({ filteredProducts, filters });
 
     // filteredProducts = filters.category
     //   ? filteredProducts.filter(
-    //       (product) => product?.category === filters.category
+    //       (product) => filters.category === product.category
     //     )
     //   : filteredProducts;
-    // console.log({ filteredProducts, filters });
 
-    const filteredProducts = filters.category
-      ? products.filter(
-          (product) =>
-            filters.category === product.category &&
-            filters.vegetarianOnly === product.vegetarian &&
-            filters.noNuts !== product.nuts &&
-            filters.maxSpiciness >= product.spiciness
-        )
-      : products;
+    let filteredProducts = products.filter((product) => {
+      if (filters.category && product.category !== filters.category)
+        return false;
+
+      if (filters.maxSpiciness && product.spiciness > filters.maxSpiciness)
+        return false;
+
+      if (filters.noNuts && product.nuts) return false;
+
+      if (filters.vegetarianOnly && !product.vegetarian) return false;
+
+      return true;
+    });
     console.log({ filteredProducts, filters });
 
     setFilteredProducts(filteredProducts);
   }, [products, filters]);
-
-  //console.log(filters);
 
   const context = {
     products: filteredProducts,
@@ -96,3 +98,9 @@ export const ProductsProvider = ({ children }) => {
     </ProductsContext.Provider>
   );
 };
+
+// if (
+//   !filters.category ||
+//   (filters.category && product.category == filters.category)
+// )
+//   return true;

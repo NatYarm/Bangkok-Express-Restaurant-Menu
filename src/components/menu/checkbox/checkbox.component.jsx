@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { useContext } from 'react';
-import { ProductsContext } from '../../contexts/products.context';
+import { ProductsContext } from '../../../contexts/products.context';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
@@ -16,11 +16,13 @@ const CheckboxesFilter = () => {
   const { updateFilters } = useContext(ProductsContext);
 
   const handleChange = (event) => {
+    event = event.target;
     setState({
       ...state,
-      [event.target.name]: event.target.checked,
+      [event.name]: event.checked,
     });
-    updateFilters({ name: [event.target.name], value: event.target.checked });
+
+    updateFilters({ name: event.name, value: event.checked });
   };
 
   const { noNuts, vegetarianOnly } = state;

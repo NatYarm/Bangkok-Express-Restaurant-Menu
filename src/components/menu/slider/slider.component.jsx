@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState, useContext } from 'react';
-import { ProductsContext } from '../../contexts/products.context';
+import { ProductsContext } from '../../../contexts/products.context';
 
 import Slider from '@mui/material/Slider';
 import { styled } from '@mui/material/styles';

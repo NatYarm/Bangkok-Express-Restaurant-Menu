@@ -1,5 +1,5 @@
 import './menu-item-card.styles.scss';
-import AddButton from '../button/button.component';
+import AddButton from '../../button/button.component';
 
 const MenuItemCard = ({ product }) => {
   const { name, image, price } = product;
@@ -8,7 +8,7 @@ const MenuItemCard = ({ product }) => {
       <div className="card-top">
         <img
           className="card-image"
-          src={require(`../../assets/images/products/${image}`)}
+          src={require(`../../../assets/images/products/${image}`)}
           alt={`${name}`}
         />
       </div>

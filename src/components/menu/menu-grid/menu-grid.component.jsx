@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { ProductsContext } from '../../contexts/products.context';
+import { ProductsContext } from '../../../contexts/products.context';
 import MenuItemCard from '../menu-item-card/menu-item-card.component';
 import './menu-grid.styles.scss';
 
