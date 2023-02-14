@@ -1,16 +1,17 @@
-import { getBottomNavigationUtilityClass } from '@mui/material';
-import { createContext, useState, useEffect, useCallback } from 'react';
+import { createContext, useState, useEffect } from 'react';
 
 export const ProductsContext = createContext({
   products: [],
   categories: [],
   filters: {},
   filteredProducts: [],
+  cartIsEmpty: false,
   setProducts: () => {},
   setCategories: () => {},
   setFilters: () => {},
   updateFilters: (filters) => {},
   setFilteredProducts: () => {},
+  setCartIsEmpty: () => {},
 });
 
 export const ProductsProvider = ({ children }) => {
@@ -20,6 +21,7 @@ export const ProductsProvider = ({ children }) => {
     maxSpiciness: 3,
   });
   const [filteredProducts, setFilteredProducts] = useState(products);
+  const [cartIsEmpty, setCartIsEmpty] = useState(false);
 
   useEffect(() => {
     const getCategories = async () => {
@@ -44,29 +46,6 @@ export const ProductsProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    // let filteredProducts = products.filter(
-    //   (product) => product.spiciness <= filters.maxSpiciness
-    // );
-    // // console.log({ filteredProducts, filters });
-
-    // filteredProducts = filters.noNuts
-    //   ? filteredProducts.filter((product) => filters.noNuts !== product.nuts)
-    //   : filteredProducts;
-    // // console.log({ filteredProducts, filters });
-
-    // filteredProducts = filters.vegetarianOnly
-    //   ? filteredProducts.filter(
-    //       (product) => filters.vegetarianOnly === product.vegetarian
-    //     )
-    //   : filteredProducts;
-    // // console.log({ filteredProducts, filters });
-
-    // filteredProducts = filters.category
-    //   ? filteredProducts.filter(
-    //       (product) => filters.category === product.category
-    //     )
-    //   : filteredProducts;
-
     let filteredProducts = products.filter((product) => {
       if (filters.category && product.category !== filters.category)
         return false;
@@ -80,7 +59,6 @@ export const ProductsProvider = ({ children }) => {
 
       return true;
     });
-    console.log({ filteredProducts, filters });
 
     setFilteredProducts(filteredProducts);
   }, [products, filters]);
@@ -89,8 +67,10 @@ export const ProductsProvider = ({ children }) => {
     products: filteredProducts,
     allCategories,
     filters,
+    cartIsEmpty,
     setAllCategories,
     updateFilters,
+    setCartIsEmpty,
   };
   return (
     <ProductsContext.Provider value={context}>
@@ -98,9 +78,3 @@ export const ProductsProvider = ({ children }) => {
     </ProductsContext.Provider>
   );
 };
-
-// if (
-//   !filters.category ||
-//   (filters.category && product.category == filters.category)
-// )
-//   return true;

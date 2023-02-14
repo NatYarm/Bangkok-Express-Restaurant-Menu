@@ -6,7 +6,7 @@ import './menu.styles.scss';
 
 const Menu = () => {
   return (
-    <div>
+    <div className="container">
       <h2 className="section-heading">Our Menu</h2>
       <div className="categories">
         <CategoriesMenu />
