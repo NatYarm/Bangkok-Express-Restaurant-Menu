@@ -1,15 +1,22 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
-import { ProductsContext } from '../../contexts/products.context';
+import { ProductsContext } from '../../../contexts/products.context';
+import Cart from '../cart/cart.component';
+
 import './cart-icon.styles.scss';
 
 const CartIcon = () => {
-  const { cartIsEmpty } = useContext(ProductsContext);
+  const { cartItems, itemsCount, cartTotal, cartOpen, setCartOpen } =
+    useContext(ProductsContext);
   const [cartIconTop, setCartIconTop] = useState(undefined);
   const [cartIconWidth, setCartIconWidth] = useState(undefined);
 
+  const handleOpen = () => {
+    setCartOpen(true);
+  };
+
   useEffect(() => {
     const cartIcon = document.querySelector('.cart-icon');
-
+    if (!cartIcon) return;
     const initialCoord = cartIcon.getBoundingClientRect();
     setCartIconTop(initialCoord.top);
     setCartIconWidth(initialCoord.width);
@@ -53,14 +60,15 @@ const CartIcon = () => {
 
   return (
     <>
-      {!cartIsEmpty ? (
+      {cartItems.length !== 0 ? (
         <div className="cart-icon">
-          <div className="cart-icon-inner">
-            <span className="items-count">1</span>
-            <span className="items-price">fff</span>
+          <div className="cart-icon-inner" type="button" onClick={handleOpen}>
+            <span className="items-count">{itemsCount}</span>
+            <span className="items-price">{`€${cartTotal.toFixed(2)}`}</span>
           </div>
         </div>
       ) : null}
+      <Cart open={cartOpen} onClick={handleOpen} />
     </>
   );
 };

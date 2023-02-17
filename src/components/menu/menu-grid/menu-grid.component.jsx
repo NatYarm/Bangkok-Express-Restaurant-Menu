@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { ProductsContext } from '../../../contexts/products.context';
-import MenuItemCard from '../menu-item-card/menu-item-card.component';
+import ProductCard from '../product-card/product-card.component';
+
 import './menu-grid.styles.scss';
 
 const MenuGrid = () => {
@@ -9,7 +10,7 @@ const MenuGrid = () => {
     <div className="products-grid-container">
       {products &&
         products.map((product) => (
-          <MenuItemCard key={product.id} product={product} />
+          <ProductCard key={product.id} product={product} />
         ))}
     </div>
   );

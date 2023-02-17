@@ -1,10 +1,9 @@
-import { ReactComponent as ArrowRight } from '../../assets/images/icons/angle-icon.svg';
-import { ReactComponent as ArrowLeft } from '../../assets/images/icons/angle-left-icon.svg';
+import { ReactComponent as ArrowRight } from '../../../assets/images/icons/angle-icon.svg';
+import { ReactComponent as ArrowLeft } from '../../../assets/images/icons/angle-left-icon.svg';
 import './arrow.styles.scss';
 
 const ARROW_TYPE = {
   carousel: 'carousel-arrow',
-  ribbon: 'ribbon-arrow',
 };
 
 const Arrow = (props) => {

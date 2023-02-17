@@ -1,17 +1,55 @@
 import { createContext, useState, useEffect } from 'react';
 
+// Helper Functions
+const addCartItem = (cartItems, itemToAdd) => {
+  const existingCartItem = cartItems.find(
+    (cartItem) => cartItem.id === itemToAdd.id
+  );
+
+  if (existingCartItem) {
+    return cartItems.map((cartItem) =>
+      cartItem.id === itemToAdd.id
+        ? { ...cartItem, quantity: cartItem.quantity + 1 }
+        : cartItem
+    );
+  }
+
+  return [...cartItems, { ...itemToAdd, quantity: 1 }];
+};
+
+const removeCartItem = (cartItems, itemToRemove) => {
+  const itemInCart = cartItems.find(
+    (cartItem) => cartItem.id === itemToRemove.id
+  );
+
+  if (itemInCart.quantity === 1)
+    return cartItems.filter((cartItem) => cartItem.id !== itemToRemove.id);
+
+  return cartItems.map((cartItem) =>
+    cartItem.id === itemToRemove.id
+      ? { ...cartItem, quantity: cartItem.quantity - 1 }
+      : cartItem
+  );
+};
+
 export const ProductsContext = createContext({
   products: [],
   categories: [],
   filters: {},
   filteredProducts: [],
-  cartIsEmpty: false,
+  cartItems: [],
+  itemsCount: 0,
+  cartTotal: 0,
+  cartOpen: false,
   setProducts: () => {},
   setCategories: () => {},
   setFilters: () => {},
   updateFilters: (filters) => {},
   setFilteredProducts: () => {},
-  setCartIsEmpty: () => {},
+  setCartOpen: () => {},
+  setCartTotal: () => {},
+  addItemToCart: () => {},
+  removeItemFromCart: () => {},
 });
 
 export const ProductsProvider = ({ children }) => {
@@ -21,7 +59,10 @@ export const ProductsProvider = ({ children }) => {
     maxSpiciness: 3,
   });
   const [filteredProducts, setFilteredProducts] = useState(products);
-  const [cartIsEmpty, setCartIsEmpty] = useState(false);
+  const [cartOpen, setCartOpen] = useState(false);
+  const [cartItems, setCartItems] = useState([]);
+  const [itemsCount, setItemsCount] = useState(0);
+  const [cartTotal, setCartTotal] = useState(0);
 
   useEffect(() => {
     const getCategories = async () => {
@@ -63,14 +104,44 @@ export const ProductsProvider = ({ children }) => {
     setFilteredProducts(filteredProducts);
   }, [products, filters]);
 
+  const addItemToCart = (itemToAdd) => {
+    setCartItems(addCartItem(cartItems, itemToAdd));
+  };
+  //console.log(cartItems);
+
+  const removeItemFromCart = (itemToRemove) => {
+    setCartItems(removeCartItem(cartItems, itemToRemove));
+  };
+
+  useEffect(() => {
+    const cartItemsCount = cartItems.reduce(
+      (acc, item) => acc + item.quantity,
+      0
+    );
+    setItemsCount(cartItemsCount);
+  }, [cartItems]);
+
+  useEffect(() => {
+    const cartItemsTotal = cartItems.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0
+    );
+    setCartTotal(cartItemsTotal);
+  }, [cartItems]);
+
   const context = {
     products: filteredProducts,
     allCategories,
     filters,
-    cartIsEmpty,
+    cartOpen,
+    cartItems,
+    itemsCount,
+    cartTotal,
     setAllCategories,
     updateFilters,
-    setCartIsEmpty,
+    addItemToCart,
+    setCartOpen,
+    removeItemFromCart,
   };
   return (
     <ProductsContext.Provider value={context}>
