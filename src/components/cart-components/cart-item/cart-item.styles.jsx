@@ -1,14 +1,17 @@
-.cart-item-container {
+import styled from 'styled-components';
+
+export const CartItemContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 8px;
   background-color: var(--color-black-dark);
-}
-.cart-item-container > * {
-  flex-grow: 1;
-}
-.cart-item-image {
+  & > * {
+    flex-grow: 1;
+  }
+`;
+
+export const CartItemImage = styled.div`
   max-width: 92px;
   overflow: hidden;
   background-color: var(--color-black-middle);
@@ -21,14 +24,13 @@
     max-width: 100%;
     padding: 0 8px;
   }
-}
-
-.cart-item-info {
+`;
+export const CartItemInfo = styled.div`
   display: flex;
   flex-direction: row;
-}
+`;
 
-.cart-item-name {
+export const CartItemName = styled.div`
   padding: 24px;
   font-family: var(--font-primary), sans-serif;
   font-style: italic;
@@ -39,21 +41,21 @@
   flex-grow: 1;
   display: block;
   align-items: center;
-}
+`;
 
-.cart-counter {
-  display: flex;
-  align-items: center;
-}
-
-.price-group {
+export const PriceGroup = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   width: 260px;
-}
+`;
 
-.cart-item-total {
+export const CartCounter = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const CartItemTotal = styled.div`
   max-width: 135px;
   width: 100%;
   text-align: right;
@@ -67,32 +69,32 @@
   flex-direction: column;
   align-items: flex-end;
   justify-content: center;
-}
+`;
 
-@media all and (max-width: 767px) {
-  .cart-item-container {
-    align-items: unset;
-  }
+// @media all and (max-width: 767px) {
+//   .cart-item-container {
+//     align-items: unset;
+//   }
 
-  .price-group {
-    width: 100%;
-  }
+//   .price-group {
+//     width: 100%;
+//   }
 
-  .cart-item-info {
-    flex-direction: column;
-    padding: 16px 24px;
-  }
+//   .cart-item-info {
+//     flex-direction: column;
+//     padding: 16px 24px;
+//   }
 
-  .cart-item-name {
-    padding: 0 0 16px;
-    font-size: 18px;
-  }
+//   .cart-item-name {
+//     padding: 0 0 16px;
+//     font-size: 18px;
+//   }
 
-  .cart-item-total {
-    padding: 0 0 0 16px;
-  }
+//   .cart-item-total {
+//     padding: 0 0 0 16px;
+//   }
 
-  .cart-item-image {
-    max-width: 120px;
-  }
-}
+//   .cart-item-image {
+//     max-width: 120px;
+//   }
+// }

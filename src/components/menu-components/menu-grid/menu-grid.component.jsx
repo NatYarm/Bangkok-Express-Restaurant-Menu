@@ -2,17 +2,17 @@ import { useContext } from 'react';
 import { ProductsContext } from '../../../contexts/products.context';
 import ProductCard from '../product-card/product-card.component';
 
-import './menu-grid.styles.scss';
+import { ProductsGridContainer } from './menu-grid.styles';
 
 const MenuGrid = () => {
   const { products } = useContext(ProductsContext);
   return (
-    <div className="products-grid-container">
+    <ProductsGridContainer>
       {products &&
         products.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
-    </div>
+    </ProductsGridContainer>
   );
 };
 

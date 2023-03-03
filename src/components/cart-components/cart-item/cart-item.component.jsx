@@ -1,4 +1,12 @@
-import './cart-item.styles.scss';
+import {
+  CartItemContainer,
+  CartItemImage,
+  CartItemInfo,
+  CartItemName,
+  PriceGroup,
+  CartCounter,
+  CartItemTotal,
+} from './cart-item.styles';
 import { IconButton } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
@@ -23,30 +31,32 @@ const CartItem = ({ cartItem }) => {
   }, [price, quantity]);
 
   return (
-    <div className="cart-item-container">
-      <div className="cart-item-image">
+    <CartItemContainer>
+      <CartItemImage>
         <img
           src={require(`../../../assets/images/products/${image}`)}
           alt={`${name}`}
         />
-      </div>
-      <div className="cart-item-info">
-        <div className="cart-item-name">{name}</div>
-        <div className="price-group">
-          <div className="cart-counter">
+      </CartItemImage>
+      <CartItemInfo>
+        <CartItemName>{name}</CartItemName>
+        <PriceGroup>
+          <CartCounter>
             <IconButton onClick={addItemHandler}>
-              <AddCircleIcon sx={{ color: '#b6b4a2', fontSize: 28 }} />
+              <AddCircleIcon sx={btnStyle} />
             </IconButton>
-            <span className="cart-quantity">{quantity}</span>
+            <span>{quantity}</span>
             <IconButton onClick={removeItemHandler}>
-              <RemoveCircleIcon sx={{ color: '#b6b4a2', fontSize: 28 }} />
+              <RemoveCircleIcon sx={btnStyle} />
             </IconButton>
-          </div>
-          <div className="cart-item-total">€{itemTotal}</div>
-        </div>
-      </div>
-    </div>
+          </CartCounter>
+          <CartItemTotal>€{itemTotal}</CartItemTotal>
+        </PriceGroup>
+      </CartItemInfo>
+    </CartItemContainer>
   );
 };
+
+const btnStyle = { color: '#b6b4a2', fontSize: 28 };
 
 export default CartItem;

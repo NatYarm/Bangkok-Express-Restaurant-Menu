@@ -41,6 +41,7 @@ export const ProductsContext = createContext({
   itemsCount: 0,
   cartTotal: 0,
   cartOpen: false,
+  headerContainerWidth: 0,
   setProducts: () => {},
   setCategories: () => {},
   setFilters: () => {},
@@ -50,6 +51,8 @@ export const ProductsContext = createContext({
   setCartTotal: () => {},
   addItemToCart: () => {},
   removeItemFromCart: () => {},
+
+  setHeaderContainerWidth: () => {},
 });
 
 export const ProductsProvider = ({ children }) => {
@@ -63,15 +66,7 @@ export const ProductsProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
   const [itemsCount, setItemsCount] = useState(0);
   const [cartTotal, setCartTotal] = useState(0);
-
-  useEffect(() => {
-    const getCategories = async () => {
-      const resp = await fetch('../../categories.json');
-      const categories = await resp.json();
-      setAllCategories(categories);
-    };
-    getCategories();
-  }, []);
+  const [headerContainerWidth, setHeaderContainerWidth] = useState();
 
   useEffect(() => {
     const getProducts = async () => {
@@ -80,6 +75,15 @@ export const ProductsProvider = ({ children }) => {
       setProducts(products);
     };
     getProducts();
+  }, []);
+
+  useEffect(() => {
+    const getCategories = async () => {
+      const resp = await fetch('../../categories.json');
+      const categories = await resp.json();
+      setAllCategories(categories);
+    };
+    getCategories();
   }, []);
 
   const updateFilters = ({ name, value }) => {
@@ -91,8 +95,7 @@ export const ProductsProvider = ({ children }) => {
       if (filters.category && product.category !== filters.category)
         return false;
 
-      if (filters.maxSpiciness && product.spiciness > filters.maxSpiciness)
-        return false;
+      if (product.spiciness > filters.maxSpiciness) return false;
 
       if (filters.noNuts && product.nuts) return false;
 
@@ -107,7 +110,6 @@ export const ProductsProvider = ({ children }) => {
   const addItemToCart = (itemToAdd) => {
     setCartItems(addCartItem(cartItems, itemToAdd));
   };
-  //console.log(cartItems);
 
   const removeItemFromCart = (itemToRemove) => {
     setCartItems(removeCartItem(cartItems, itemToRemove));
@@ -137,11 +139,13 @@ export const ProductsProvider = ({ children }) => {
     cartItems,
     itemsCount,
     cartTotal,
+    headerContainerWidth,
     setAllCategories,
     updateFilters,
     addItemToCart,
     setCartOpen,
     removeItemFromCart,
+    setHeaderContainerWidth,
   };
   return (
     <ProductsContext.Provider value={context}>

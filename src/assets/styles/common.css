@@ -1,5 +1,4 @@
 @import 'https://fonts.googleapis.com/css?family=Lato:400,400i|Source+Sans+Pro|Sriracha&display=swap';
-@import './button.css';
 
 :root {
   --color-white: #fff;
@@ -65,13 +64,6 @@ select {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-}
-
-button {
-  box-shadow: none;
-  outline: none;
-  border: none;
-  background-color: transparent;
 }
 
 p {

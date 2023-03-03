@@ -1,18 +1,28 @@
-import Carousel from './carousel/carousel.component';
+import CarouselComponent from './carousel/carousel.component';
 import CartIcon from '../cart-components/cart-icon/cart-icon.component';
-
-import './header.styles.scss';
+import { HeaderContainer, Heading, Subheading } from './header.styles';
+import { useContext, useRef } from 'react';
+import { ProductsContext } from '../../contexts/products.context';
+import { useEffect } from 'react';
 
 const Header = () => {
+  const { setHeaderContainerWidth } = useContext(ProductsContext);
+  const containerRef = useRef();
+
+  useEffect(() => {
+    const headerWidth = containerRef.current.getBoundingClientRect().right;
+    setHeaderContainerWidth(headerWidth);
+  }, [setHeaderContainerWidth]);
+
   return (
-    <div className="header container">
-      <div className="header-details" style={{ marginBottom: '36px' }}>
-        <h1 className="heading">Bangkok Express</h1>
-        <h3 className="subheading">Great food・Free delivery・Fair price</h3>
-      </div>
-      <CartIcon />
-      <Carousel />
-    </div>
+    <>
+      <HeaderContainer ref={containerRef}>
+        <CartIcon />
+        <Heading>Bangkok Express</Heading>
+        <Subheading>Great food・Free delivery・Fair price</Subheading>
+      </HeaderContainer>
+      <CarouselComponent />
+    </>
   );
 };
 export default Header;

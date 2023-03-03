@@ -1,72 +1,68 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState, useRef } from 'react';
 import { ProductsContext } from '../../../contexts/products.context';
 import Cart from '../cart/cart.component';
 
-import './cart-icon.styles.scss';
+import {
+  CartIconContainer,
+  ShoppingIcon,
+  ItemsCount,
+  ItemsPrice,
+} from './cart-icon.styles';
 
 const CartIcon = () => {
-  const { cartItems, itemsCount, cartTotal, cartOpen, setCartOpen } =
-    useContext(ProductsContext);
-  const [cartIconTop, setCartIconTop] = useState(undefined);
-  const [cartIconWidth, setCartIconWidth] = useState(undefined);
+  const {
+    cartItems,
+    itemsCount,
+    cartTotal,
+    cartOpen,
+    setCartOpen,
+    headerContainerWidth,
+  } = useContext(ProductsContext);
 
   const handleOpen = () => {
     setCartOpen(true);
   };
 
-  useEffect(() => {
-    const cartIcon = document.querySelector('.cart-icon');
-    if (!cartIcon) return;
-    const initialCoord = cartIcon.getBoundingClientRect();
-    setCartIconTop(initialCoord.top);
-    setCartIconWidth(initialCoord.width);
-  }, []);
+  const [fixedPosition, setFixedPosition] = useState(false);
 
-  const isSticky = useCallback(() => {
-    const cartIcon = document.querySelector('.cart-icon');
+  const cartIconRef = useRef();
 
-    let leftIndent =
-      Math.min(
-        document.querySelector('.container').getBoundingClientRect().right + 20,
-        document.documentElement.clientWidth - cartIconWidth - 10
-      ) + 'px';
+  const cartIconWidth = cartIconRef.current?.getBoundingClientRect().width;
 
-    if (window.pageYOffset > cartIconTop) {
-      Object.assign(cartIcon.style, {
-        position: 'fixed',
-        top: '50px',
-        zIndex: 1e3,
-        right: '10px',
-        left: leftIndent,
-      });
-    } else {
-      Object.assign(cartIcon.style, {
-        position: '',
-        top: '',
-        left: '',
-        zIndex: '',
-      });
-    }
-  }, [cartIconTop, cartIconWidth]);
+  const leftIndent =
+    Math.min(
+      headerContainerWidth + 20,
+      document.documentElement.clientWidth - cartIconWidth - 10
+    ) + 'px';
 
   useEffect(() => {
-    if (!cartIconTop) return;
+    const cartIconTop = cartIconRef.current?.getBoundingClientRect().top;
 
-    window.addEventListener('scroll', isSticky);
-    return () => {
-      window.removeEventListener('scroll', isSticky);
+    const handleScroll = () => {
+      setFixedPosition(window.scrollY > cartIconTop);
     };
-  }, [cartIconTop, isSticky]);
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+    };
+  });
 
   return (
     <>
       {cartItems.length !== 0 ? (
-        <div className="cart-icon">
-          <div className="cart-icon-inner" type="button" onClick={handleOpen}>
-            <span className="items-count">{itemsCount}</span>
-            <span className="items-price">{`€${cartTotal.toFixed(2)}`}</span>
-          </div>
-        </div>
+        <CartIconContainer
+          ref={cartIconRef}
+          fixed={fixedPosition}
+          leftIndent={leftIndent}
+        >
+          <ShoppingIcon type="button" onClick={handleOpen}>
+            <ItemsCount>{itemsCount}</ItemsCount>
+            <ItemsPrice>{`€${cartTotal.toFixed(2)}`}</ItemsPrice>
+          </ShoppingIcon>
+        </CartIconContainer>
       ) : null}
       <Cart open={cartOpen} onClick={handleOpen} />
     </>

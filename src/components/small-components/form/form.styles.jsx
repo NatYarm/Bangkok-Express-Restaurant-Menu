@@ -1,9 +1,11 @@
-.checkout-form {
+import styled from 'styled-components';
+
+export const CheckoutForm = styled.form`
   padding: 20px 27px 32px;
   background-color: var(--color-black-dark);
-}
+`;
 
-.form-title {
+export const FormTitle = styled.h5`
   font-size: 21px;
   line-height: 1.2;
   font-weight: 700;
@@ -12,18 +14,19 @@
   color: var(--color-body);
   margin: 0 0 25px;
   text-align: center;
-}
+`;
 
-.form-group {
+export const FormGroup = styled.div`
   margin-top: 16px;
-  &.row {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 6px;
-  }
-}
+`;
 
-.form-input {
+export const FormGroupRow = styled(FormGroup)`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 6px;
+`;
+
+export const FormInput = styled.input`
   height: 48px;
   border: none;
   box-shadow: none;
@@ -38,17 +41,18 @@
   font-weight: 500;
   width: 100%;
   transition: 0.2s box-shadow;
-}
+`;
 
-.form-button-group {
+export const FormButtonGroup = styled.div`
   display: flex;
   justify-content: center;
   padding: 40px 80px 0;
   text-align: center;
-}
-.form-button {
+`;
+
+export const FormButton = styled.div`
   height: 60px;
-  padding: 18px 20px;
+  padding: 18px 14px;
   background-color: var(--color-yellow);
   font-family: 'Lato', sans-serif;
   font-style: italic;
@@ -60,14 +64,9 @@
   transition: 0.2s all;
   text-transform: uppercase;
   cursor: pointer;
-}
-.form-arrow {
-  margin-left: 15px;
-  margin-top: 4px;
-  height: 15px;
-}
+`;
 
-.form-button-info {
+export const FormButtonInfo = styled.div`
   padding: 10px 12px;
   display: flex;
   flex-direction: column;
@@ -76,14 +75,15 @@
   color: var(--color-body);
   font-family: var(--font-primary), sans-serif;
   background-color: var(--color-pink);
-}
-.info-text {
+`;
+export const InfoText = styled.span`
   font-weight: 500;
   font-size: 11px;
   text-transform: uppercase;
-}
-.info-price {
+`;
+
+export const InfoPrice = styled.span`
   font-size: 18px;
   line-height: 1.2;
   font-weight: 500;
-}
+`;
