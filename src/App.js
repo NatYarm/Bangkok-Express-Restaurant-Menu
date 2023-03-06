@@ -1,5 +1,5 @@
 import './App.css';
-import Header from './components/header/header.component';
+import Header from './components/header-components/header.component';
 import Menu from './components/menu-components/menu.component';
 import Container from '@mui/material/Container';
 
