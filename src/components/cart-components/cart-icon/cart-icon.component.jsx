@@ -24,9 +24,7 @@ const CartIcon = () => {
   };
 
   const [fixedPosition, setFixedPosition] = useState(false);
-
   const cartIconRef = useRef();
-
   const cartIconWidth = cartIconRef.current?.getBoundingClientRect().width;
 
   const leftIndent =

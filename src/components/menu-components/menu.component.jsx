@@ -2,6 +2,7 @@ import CategoriesMenu from './categories-menu/categories-menu.component';
 import SliderFilter from './slider/slider.component';
 import CheckboxesFilter from './checkbox/checkbox.component';
 import MenuGrid from './menu-grid/menu-grid.component';
+
 import {
   MenuContainer,
   Filters,

@@ -7,9 +7,11 @@ import CartItem from '../cart-item/cart-item.component';
 import Form from '../../small-components/form/form.component';
 import { IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import SuccessfulOrder from '../../small-components/successful-order/successful-order.component';
 
 const Cart = () => {
-  const { cartItems, cartOpen, setCartOpen } = useContext(ProductsContext);
+  const { cartItems, cartOpen, setCartOpen, orderSuccessful } =
+    useContext(ProductsContext);
 
   const closeCart = () => setCartOpen(false);
 
@@ -54,6 +56,7 @@ const Cart = () => {
           <Form />
         </Box>
       </Modal>
+      {orderSuccessful && <SuccessfulOrder />}
     </>
   );
 };

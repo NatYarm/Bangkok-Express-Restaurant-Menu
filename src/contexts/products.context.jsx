@@ -42,6 +42,7 @@ export const ProductsContext = createContext({
   cartTotal: 0,
   cartOpen: false,
   headerContainerWidth: 0,
+  orderSuccessful: false,
   setProducts: () => {},
   setCategories: () => {},
   setFilters: () => {},
@@ -51,8 +52,9 @@ export const ProductsContext = createContext({
   setCartTotal: () => {},
   addItemToCart: () => {},
   removeItemFromCart: () => {},
-
+  submitForm: () => {},
   setHeaderContainerWidth: () => {},
+  setOrderSuccessful: () => {},
 });
 
 export const ProductsProvider = ({ children }) => {
@@ -67,6 +69,7 @@ export const ProductsProvider = ({ children }) => {
   const [itemsCount, setItemsCount] = useState(0);
   const [cartTotal, setCartTotal] = useState(0);
   const [headerContainerWidth, setHeaderContainerWidth] = useState();
+  const [orderSuccessful, setOrderSuccessful] = useState(false);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -94,13 +97,9 @@ export const ProductsProvider = ({ children }) => {
     let filteredProducts = products.filter((product) => {
       if (filters.category && product.category !== filters.category)
         return false;
-
       if (product.spiciness > filters.maxSpiciness) return false;
-
       if (filters.noNuts && product.nuts) return false;
-
       if (filters.vegetarianOnly && !product.vegetarian) return false;
-
       return true;
     });
 
@@ -131,6 +130,30 @@ export const ProductsProvider = ({ children }) => {
     setCartTotal(cartItemsTotal);
   }, [cartItems]);
 
+  const emptyCart = () => {
+    setCartItems([]);
+  };
+
+  const submitForm = async () => {
+    try {
+      let res = await fetch('https://httpbin.org/post', {
+        method: 'POST',
+        body: JSON.stringify({ cartItems }),
+      });
+      //let resJson = await res.json();
+      if (res.status === 200) {
+        emptyCart();
+        setCartOpen(false);
+        setOrderSuccessful(true);
+        //console.log(resJson);
+      } else {
+        console.error('Error occurred');
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const context = {
     products: filteredProducts,
     allCategories,
@@ -139,13 +162,16 @@ export const ProductsProvider = ({ children }) => {
     cartItems,
     itemsCount,
     cartTotal,
+    orderSuccessful,
     headerContainerWidth,
     setAllCategories,
     updateFilters,
     addItemToCart,
     setCartOpen,
     removeItemFromCart,
+    submitForm,
     setHeaderContainerWidth,
+    setOrderSuccessful,
   };
   return (
     <ProductsContext.Provider value={context}>

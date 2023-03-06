@@ -20,10 +20,12 @@ export const FormGroup = styled.div`
   margin-top: 16px;
 `;
 
-export const FormGroupRow = styled(FormGroup)`
+export const ErrorMsg = styled.span`
+  color: red;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 6px;
+  grid-template-rows: repeat(3, 1fr);
+  font-size: 12px;
+  position: absolute;
 `;
 
 export const FormInput = styled.input`
@@ -41,6 +43,7 @@ export const FormInput = styled.input`
   font-weight: 500;
   width: 100%;
   transition: 0.2s box-shadow;
+  position: relative;
 `;
 
 export const FormButtonGroup = styled.div`
@@ -87,3 +90,9 @@ export const InfoPrice = styled.span`
   line-height: 1.2;
   font-weight: 500;
 `;
+
+// export const FormGroupRow = styled.div`
+//  display: grid;
+// grid-template-columns: repeat(3, 1fr);
+// grid-gap: 6px;
+// `;

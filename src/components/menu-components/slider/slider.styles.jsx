@@ -48,7 +48,7 @@ export const CustomizedSlider = styled(Slider)(({ theme }) => ({
       width: '16px',
       height: '16px',
       left: -24,
-      top: 10,
+      top: 1,
       backgroundImage: `url('${pepperSvg}')`,
     },
   },
